@@ -8,11 +8,10 @@ A complete database design and implementation for **Recruit.log**, a platform th
 
 ```bash
 # 1. Create and populate the database
-bash setup.sh
+sqlite3 project-1-database.db < project-1-populate-data.sql
 
 # 2. Run any query
-sqlite3 -header -column recruitlog.db < sql/queries/project-1-query-1.sql
-
+sqlite3 -header -column project-1-database.db < queries/project-1-query-1.sql
 ```
 
 ---
@@ -34,9 +33,9 @@ recruit-log-db/
 │
 ├── diagrams/
 │   ├── project-1 UML Diagram.png  ← [Q1] Static PNG of UML Conceptual Model
-│   ├── project-1 UML Diagram.pdf  ← [Q1] Mermaid Source of UML
-│   ├── project-1 ERD Diagram.png     ← [Q2] Static PNG of ERD Logical Model
-│   └── project-1 ERD Diagram.pdf     ← [Q2] Mermaid Source of ERD
+│   ├── project-1 UML Diagram.pdf  ← [Q1] PDF of UML Conceptual Model
+│   ├── project-1 ERD Diagram.png  ← [Q2] Static PNG of ERD Logical Model
+│   └── project-1 ERD Diagram.pdf  ← [Q2] PDF of ERD Logical Model
 │
 ├── queries/
 │   ├── project-1-query-1.sql    ← [Q6] Join of 6 tables
@@ -61,7 +60,7 @@ Describes the CS recruiting problem domain, lists 12 business rules, user person
 
 ### Q1 — UML Conceptual Model (15 pts)
 
-*(Available as static graphic: [`diagrams/project-1 UML Diagram.png`](diagrams/project-1 UML Diagram.png))*
+**Files:** [`diagrams/project-1 UML Diagram.png`](diagrams/project-1%20UML%20Diagram.png) | [`diagrams/project-1 UML Diagram.pdf`](diagrams/project-1%20UML%20Diagram.pdf)
 
 Ten classes with full multiplicity constraints, domain-typed attributes, and labeled relationships across all four UML relationship types:
 
@@ -86,7 +85,7 @@ Ten classes with full multiplicity constraints, domain-typed attributes, and lab
 
 ### Q2 — Logical Data Model / ERD (10 pts)
 
-*(Available as static graphic: [`diagrams/project-1 ERD Diagram.png`](diagrams/project-1 ERD Diagram.png))*
+**Files:** [`diagrams/project-1 ERD Diagram.png`](diagrams/project-1%20ERD%20Diagram.png) | [`diagrams/project-1 ERD Diagram.pdf`](diagrams/project-1%20ERD%20Diagram.pdf)
 
 Uses Crow's Foot notation with SQL data types (int, text, real, boolean, date). All M:N relationships resolved into association entities:
 - **Applicant_Skill** resolves Applicant ↔ Skill (carries `proficiency_level` and `years_used`)
@@ -116,7 +115,7 @@ Eleven relations, each proven to be in BCNF by listing functional dependencies a
 
 ### Q4 — SQL DDL (10 pts)
 
-**File:** [`sql/create_tables.sql`](sql/create_tables.sql)
+**File:** [`project-1-populate-data.sql`](project-1-populate-data.sql)
 
 Creates all 11 tables with:
 - Primary keys (AUTOINCREMENT where appropriate)
@@ -138,7 +137,7 @@ Constraint enforcement verified:
 
 ### Q5 — Test Data (10 pts)
 
-**File:** [`sql/populate_data.sql`](sql/populate_data.sql)
+**File:** [`project-1-database.db`](project-1-database.db)
 
 | Table | Records | Notes |
 |-------|---------|-------|
@@ -156,18 +155,18 @@ Constraint enforcement verified:
 
 ### Q6 — Queries (10 pts)
 
-All queries and their outputs are documented in [`docs/query_outputs.txt`](docs/query_outputs.txt).
+All queries and their outputs are documented in [`docs/project-1-query-outputs.txt`](docs/project-1-query-outputs.txt).
 
 | Query | Requirement | File | Description |
 |-------|-------------|------|-------------|
-| 1 | Join of ≥3 tables | [`query1_three_table_join.sql`](sql/queries/query1_three_table_join.sql) | Accepted applicants' skills per company (joins Application → Applicant → Job_Listing → Company → Applicant_Skill → Skill) |
-| 2 | Subquery | [`query2_subquery.sql`](sql/queries/query2_subquery.sql) | Applicants with GPA above the average GPA of accepted applicants (scalar subquery in WHERE) |
-| 3 | GROUP BY + HAVING | [`query3_group_by_having.sql`](sql/queries/query3_group_by_having.sql) | Companies with acceptance rate below 50% |
-| 4 | Complex search | [`query4_complex_search.sql`](sql/queries/query4_complex_search.sql) | Graduate students with 2+ years experience OR BS students with high GPA and advanced Python (AND/OR with IN, multiple expressions) |
-| 5 | PARTITION BY | [`query5_partition_by.sql`](sql/queries/query5_partition_by.sql) | RANK() accepted applicants by offer salary within each company |
-| 6 | CASE/WHEN | [`query6_case_when.sql`](sql/queries/query6_case_when.sql) | Rejection funnel analysis mapping status + rejection_stage to human-readable outcomes |
-| 7 | RCTE | [`query7_rcte.sql`](sql/queries/query7_rcte.sql) | Recursive salary bracket generator with offer distribution |
-| 8 | Correlated subquery | [`query8_correlated_subquery.sql`](sql/queries/query8_correlated_subquery.sql) | Per-skill success rate: accepted vs rejected applicant counts |
+| 1 | Join of ≥3 tables | [`project-1-query-1.sql`](queries/project-1-query-1.sql) | Accepted applicants' skills per company (joins Application → Applicant → Job_Listing → Company → Applicant_Skill → Skill) |
+| 2 | Subquery | [`project-1-query-2.sql`](queries/project-1-query-2.sql) | Applicants with GPA above the average GPA of accepted applicants (scalar subquery in WHERE) |
+| 3 | GROUP BY + HAVING | [`project-1-query-3.sql`](queries/project-1-query-3.sql) | Companies with acceptance rate below 50% |
+| 4 | Complex search | [`project-1-query-4.sql`](queries/project-1-query-4.sql) | Graduate students with 2+ years experience OR BS students with high GPA and advanced Python (AND/OR with IN, multiple expressions) |
+| 5 | PARTITION BY | [`project-1-query-5.sql`](queries/project-1-query-5.sql) | RANK() accepted applicants by offer salary within each company |
+| 6 | CASE/WHEN | [`project-1-query-6.sql`](queries/project-1-query-6.sql) | Rejection funnel analysis mapping status + rejection_stage to human-readable outcomes |
+| 7 | RCTE | [`project-1-query-7.sql`](queries/project-1-query-7.sql) | Recursive salary bracket generator with offer distribution |
+| 8 | Correlated subquery | [`project-1-query-8.sql`](queries/project-1-query-8.sql) | Per-skill success rate: accepted vs rejected applicant counts |
 
 ---
 
@@ -197,18 +196,15 @@ Advisor  1 ◇────< N  Advisor_Bookmark  N >────  1  Job_Listing
 ## How to Run Queries Individually
 
 ```bash
-# Make sure database exists
-bash setup.sh
-
 # Run any query with formatted output
-sqlite3 -header -column recruitlog.db < sql/queries/query1_three_table_join.sql
-sqlite3 -header -column recruitlog.db < sql/queries/query2_subquery.sql
-sqlite3 -header -column recruitlog.db < sql/queries/query3_group_by_having.sql
-sqlite3 -header -column recruitlog.db < sql/queries/query4_complex_search.sql
-sqlite3 -header -column recruitlog.db < sql/queries/query5_partition_by.sql
-sqlite3 -header -column recruitlog.db < sql/queries/query6_case_when.sql
-sqlite3 -header -column recruitlog.db < sql/queries/query7_rcte.sql
-sqlite3 -header -column recruitlog.db < sql/queries/query8_correlated_subquery.sql
+sqlite3 -header -column project-1-database.db < queries/project-1-query-1.sql
+sqlite3 -header -column project-1-database.db < queries/project-1-query-2.sql
+sqlite3 -header -column project-1-database.db < queries/project-1-query-3.sql
+sqlite3 -header -column project-1-database.db < queries/project-1-query-4.sql
+sqlite3 -header -column project-1-database.db < queries/project-1-query-5.sql
+sqlite3 -header -column project-1-database.db < queries/project-1-query-6.sql
+sqlite3 -header -column project-1-database.db < queries/project-1-query-7.sql
+sqlite3 -header -column project-1-database.db < queries/project-1-query-8.sql
 ```
 
 ---
